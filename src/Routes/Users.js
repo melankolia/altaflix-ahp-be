@@ -9,5 +9,6 @@ Routers.post("/login", UserController.userLogin)
 Routers.delete("/:user_id", AuthCheck.token, UserController.deleteUser)
 Routers.post("/", AuthCheck.token, UserController.registerUser)
 Routers.get("/", UserController.findAllUser);
+Routers.get("/:user_id", UserController.findByUserid);
 
 export default Routers;

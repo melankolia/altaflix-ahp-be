@@ -13,7 +13,18 @@ const UserService = {
             throw error
         }
     },
-   userLogin: async (PayloadUser) => {
+    findByUserid: async (id) => {
+        try {
+            const [User] = await UserModel.findByUserid(id);
+            if (!User) throw "User's Not Found";
+
+            return User;
+        } catch (error) {
+            throw error
+            
+        }
+    },
+    userLogin: async (PayloadUser) => {
         try {
             const [User] = await UserModel.findByUsername(PayloadUser.username);
             if (!User) throw "User's Not Found";

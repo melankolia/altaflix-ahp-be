@@ -16,6 +16,22 @@ const UserController = {
             Responses.failed(res, error, next)
         }
     },
+    findByUserid: async (req, res, next) => {
+        try {
+            if (!req.params?.user_id) throw "Bad Request"
+        } catch (error) {
+            return Responses.badRequest(res, error, next)
+        }
+
+        try {
+            const user_id = req.params?.user_id;
+
+            const Result = await UserService.findByUserid(user_id);
+            return Responses.success(res, Result);
+        } catch (error) {
+            Responses.failed(res, error, next)
+        }
+    },
     userLogin: async (req, res, next) => {
         try {
             if (!req.body?.username) throw "Username Required";

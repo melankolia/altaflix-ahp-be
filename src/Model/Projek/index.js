@@ -18,7 +18,9 @@ const ProjekModel = {
         });
     },
     findByProjekId: async (projek_id) => {
-        const sql = `SELECT * FROM projek where projek_id = ?`;
+        const sql = `SELECT *   FROM projek 
+                                left join divisi on projek.divisi_id = divisi.divisi_id
+                                where projek_id = ?`;
         return new Promise((resolve, reject) => {
             Database.query(sql, [projek_id], (err, response) => {
                 if (!err) resolve(response)
