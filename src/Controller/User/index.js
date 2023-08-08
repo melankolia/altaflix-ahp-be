@@ -47,13 +47,19 @@ const UserController = {
         }
 
         try {
-            const payload = {
+            let payload = {
                 username: req.body?.username,
                 password: req.body?.password,
                 nama_lengkap: req.body?.nama_lengkap,
                 email: req.body?.email
             }
-            const Result = await UserService.registerUser(payload);
+            let Result;
+            if (!req.body?.user_id)  {
+                Result = await UserService.registerUser(payload);
+            } else {
+                payload = {...payload, user_id: req.body?.user_id}
+                Result = await UserService.updateUser(payload);
+            }
             return Responses.success(res, Result);
         } catch (error) {
             if (error == 'Username is Already Taken') return Responses.badRequest(res, error, next);

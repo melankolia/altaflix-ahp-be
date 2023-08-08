@@ -20,10 +20,34 @@ const UserModel = {
             })
         });
     },
+    findByUserid: async (user_id) => {
+        const sql = `SELECT * FROM user where user_id = ?`;
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [user_id], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
+    },
     createUser: async (PayloadUser) => {
         const sql = `INSERT INTO user SET ?`;
         return new Promise((resolve, reject) => {
             Database.query(sql, PayloadUser, (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
+    },
+    updateUser: async (PayloadUser) => {
+        const sql = `update user set 
+                            username = ?,
+                            password = ?,
+                            nama_lengkap = ?,
+                            email = ?
+                        where user_id = ?`;
+
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [PayloadUser.username, PayloadUser.password, PayloadUser.nama_lengkap, PayloadUser.email, PayloadUser.user_id], (err, response) => {
                 if (!err) resolve(response)
                 else reject(err)
             })

@@ -50,6 +50,19 @@ const UserService = {
             throw error;
         }
     },
+    updateUser: async(PayloadUser) => {
+        try {
+            const [User] = await UserModel.findByUserid(PayloadUser.user_id);
+            if (!User) throw "User is Not Found";
+
+            const Result = await UserModel.updateUser(PayloadUser);
+            if (!Result) throw "Error Update"
+
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    },
     deleteUser: async (PayloadUser) => {
         try {
             const User = await UserModel.deleteUser(PayloadUser);
