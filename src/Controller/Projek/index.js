@@ -16,7 +16,7 @@ const ProjekController = {
             Responses.failed(res, error, next)
         }
     },
-    findByProjekId: async(req, res, next) => {
+    findByProjekId: async (req, res, next) => {
         try {
             if (!req.params?.projek_id) throw "Bad Request"
         } catch (error) {
@@ -33,7 +33,7 @@ const ProjekController = {
         }
     }
     ,
-    createProjek: async(req, res, next) => {
+    createProjek: async (req, res, next) => {
         try {
             if (!req.body?.code ||
                 !req.body?.nama
@@ -62,7 +62,7 @@ const ProjekController = {
         }
 
     },
-    deleteProjek: async(req, res, next) => {
+    deleteProjek: async (req, res, next) => {
         try {
             if (!req.params?.projek_id) throw "Bad Request"
         } catch (error) {

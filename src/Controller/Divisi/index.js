@@ -16,7 +16,7 @@ const DivisiController = {
             Responses.failed(res, error, next)
         }
     },
-    findByDivisiId: async(req, res, next) => {
+    findByDivisiId: async (req, res, next) => {
         try {
             if (!req.params?.divisi_id) throw "Bad Request"
         } catch (error) {
@@ -33,7 +33,7 @@ const DivisiController = {
         }
     }
     ,
-    createDivisi: async(req, res, next) => {
+    createDivisi: async (req, res, next) => {
         try {
             if (!req.body?.code ||
                 !req.body?.nama
@@ -61,7 +61,7 @@ const DivisiController = {
         }
 
     },
-    deleteDivisi: async(req, res, next) => {
+    deleteDivisi: async (req, res, next) => {
         try {
             if (!req.params?.divisi_id) throw "Bad Request"
         } catch (error) {

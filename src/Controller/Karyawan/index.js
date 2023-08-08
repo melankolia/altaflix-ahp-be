@@ -4,7 +4,7 @@ import KaryawanService from "../../Service/Karyawan/index.js";
 const Karyawan = {
     findAllKaryawan: async (req, res, next) => {
         // try {
-            
+        //
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
@@ -16,7 +16,7 @@ const Karyawan = {
             Responses.failed(res, error, next)
         }
     },
-    findByKaryawanId: async(req, res, next) => {
+    findByKaryawanId: async (req, res, next) => {
         try {
             if (!req.params?.karyawan_id) throw "Bad Request"
         } catch (error) {
@@ -33,7 +33,7 @@ const Karyawan = {
         }
     }
     ,
-    createKaryawan: async(req, res, next) => {
+    createKaryawan: async (req, res, next) => {
         try {
             if (!req.body?.nik ||
                 !req.body?.nama 
@@ -77,7 +77,7 @@ const Karyawan = {
         }
 
     },
-    deleteKaryawan: async(req, res, next) => {
+    deleteKaryawan: async (req, res, next) => {
         try {
             if (!req.params?.karyawan_id) throw "Bad Request"
         } catch (error) {

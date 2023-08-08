@@ -52,7 +52,7 @@ const UserController = {
             return Responses.failed(res, error, next);
         }
     },
-    registerUser: async(req, res, next) => {
+    registerUser: async (req, res, next) => {
         try {
             if (!req.body?.username ||
                 !req.body?.password ||
@@ -83,7 +83,7 @@ const UserController = {
         }
 
     },
-    deleteUser: async(req, res, next) => {
+    deleteUser: async (req, res, next) => {
         try {
             if (!req.params?.user_id) throw "Bad Request"
         } catch (error) {
