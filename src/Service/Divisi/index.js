@@ -14,8 +14,8 @@ const DivisiService = {
     },
     findByDivisiId: async (divisi_id) => {
         try {
-            const Result = await DivisiModel.findByDivisiId(divisi_id);
-            if (Result.length == 0) return "Data Not Found";
+            const [Result] = await DivisiModel.findByDivisiId(divisi_id);
+            if (!Result) return "Data Not Found";
 
             return Result;
         } catch (error) {

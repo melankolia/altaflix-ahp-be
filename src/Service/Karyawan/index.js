@@ -14,8 +14,8 @@ const KaryawanService = {
     },
     findByKaryawanId: async (karyawan_id) => {
         try {
-            const Result = await KaryawanModel.findByKaryawanId(karyawan_id);
-            if (Result.length == 0) return "Data Not Found";
+            const [Result] = await KaryawanModel.findByKaryawanId(karyawan_id);
+            if (!Result) return "Data Not Found";
 
             return Result;
         } catch (error) {

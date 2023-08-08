@@ -14,8 +14,8 @@ const ProjekService = {
     },
     findByProjekId: async (divisi_id) => {
         try {
-            const Result = await ProjekModel.findByProjekId(divisi_id);
-            if (Result.length == 0) return "Data Not Found";
+            const [Result] = await ProjekModel.findByProjekId(divisi_id);
+            if (!Result) return "Data Not Found";
 
             return Result;
         } catch (error) {
