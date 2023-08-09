@@ -98,6 +98,16 @@ const NilaiModel = {
                 else reject(err)
             })
         });
+    },
+    deleteData: async (payload) => {
+        const sql = `DELETE FROM nilai_karyawan where nilai_id = ?`;
+
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [payload], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        })
     }
 };
 

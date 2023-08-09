@@ -103,6 +103,14 @@ const NilaiService = {
         } catch (error) {
             throw error;
         }
+    },
+    deleteData: async (payload) => {
+        try {
+            const Nilai = await NilaiModel.deleteData(payload);
+            return true;
+        } catch (error) {
+            throw error
+        }
     }
 }
 
