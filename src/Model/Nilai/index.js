@@ -12,11 +12,13 @@ const NilaiModel = {
                                 divisi.nama as namaDivisi,
                                 periode,
                                 nilai_hasil as nilaiHasil,
+                                GROUP_CONCAT(DISTINCT projek.nama) as projekNama,
                                 GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria
                         FROM nilai_karyawan
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
                         inner join penilaian on nilai_karyawan.nilai_id = penilaian.nilai_id 
                         inner join divisi on karyawan.divisi_id = divisi.divisi_id
+                        inner join projek on divisi.divisi_id = projek.divisi_id
                         GROUP BY nilai_id;`
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
@@ -28,6 +30,10 @@ const NilaiModel = {
     findById: async (payload) => {
         const sql = `select 		
                                 karyawan.karyawan_id,
+                                karyawan.jenis_kelamin,
+                                karyawan.tempat_lahir,
+                                karyawan.tanggal_lahir,
+                                karyawan.status_karyawan,
                                 nilai_karyawan.nilai_id,
                                 no_penilaian as noPenilaian,
                                 tanggal_penilaian as tglPenilaian,
@@ -35,6 +41,7 @@ const NilaiModel = {
                                 karyawan.nama as namaKaryawan,
                                 jabatan as namaJabatan,
                                 divisi.nama as namaDivisi,
+                                GROUP_CONCAT(DISTINCT projek.nama) as projekNama,
                                 periode,
                                 nilai_hasil as nilaiHasil,
                                 image,
@@ -44,6 +51,7 @@ const NilaiModel = {
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
                         inner join penilaian on nilai_karyawan.nilai_id = penilaian.nilai_id 
                         inner join divisi on karyawan.divisi_id = divisi.divisi_id
+                        inner join projek on divisi.divisi_id = projek.divisi_id
                         where nilai_karyawan.nilai_id = ?
                         GROUP BY nilai_id;`
         return new Promise((resolve, reject) => {

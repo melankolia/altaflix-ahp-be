@@ -26,6 +26,10 @@ app.use(logger("combined"))
 // Manage cors, menentukan situs mana yang boleh akses, situs yang mana yang di blacklist
 app.use(cors());
 
+app.use("/", express.static(path.join("src", "Template")));
+app.use("/", express.static(path.join("src", "static-img")));
+
+
 // Init Body Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

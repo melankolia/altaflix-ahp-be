@@ -1,6 +1,8 @@
 import NilaiModel from "../../Model/Nilai/index.js";
 import PenilaianModel from "../../Model/Penilaian/index.js";
 import useFullFunction from "../../Utils/Helper/UsefullFunction.js";
+import ExcelJS from "exceljs"
+import path from "path";
 
 const NilaiService = {
     findAll: async (payload) => {
@@ -110,6 +112,128 @@ const NilaiService = {
             return true;
         } catch (error) {
             throw error
+        }
+    },
+    printReport: async (payload) => {
+        try {
+            const Result = await NilaiService.findAll();
+            if (Result.length == 0) return "Data Not Found";
+
+            const pathData = path.join('src', 'Template', 'Laporan.xlsx');
+            const pathDataDownload = path.join('src', 'Template', 'Report.xlsx');
+
+            const workbook = new ExcelJS.Workbook();
+            await workbook.xlsx.readFile(pathData);
+            const currentWorkSheet = workbook.worksheets[0];
+
+            Result.forEach((e, i) => {
+                const { nilai_id, noPenilaian, tglPenilaian, nik, namaKaryawan, namaJabatan, namaDivisi, periode, nilaiHasil, projekNama, ...other } = e;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(3).value = i + 1;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(4).value = noPenilaian;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(5).value = tglPenilaian;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(6).value = nik;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(7).value = namaKaryawan;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(8).value = namaJabatan;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(9).value = projekNama;
+
+
+                const keys = Object.keys(other);
+                keys.forEach((e2, i2) => {
+                    currentWorkSheet.getRow(9 + (i + 1)).getCell(9 + (i2 + 1)).value = e[e2];
+
+                    if (i2 == keys.length - 1) {
+                        currentWorkSheet.getRow(9 + (i + 1)).getCell(15).value = nilaiHasil
+                        console.log(nilaiHasil);
+                    }
+                })
+                
+            })
+
+            currentWorkSheet.getCell('L22').value = `Jakarta, ${new Date().toLocaleDateString('id-ID', {
+                weekday: undefined, year: "numeric", month: "long", day: "numeric" 
+            })}`;
+
+
+            await workbook.xlsx.writeFile(pathDataDownload)
+
+            return pathDataDownload
+        } catch (error) {
+            throw error;
+        }
+    },
+    printIndividualReport: async (payload) => {
+        try {
+            const Result = await NilaiService.findById(payload);
+            if (!Result) return "Data Not Found";
+
+            const pathData = path.join('src', 'Template', 'Laporan_Individu.xlsx');
+            const pathDataDownload = path.join('src', 'Template', 'Report_Individual.xlsx');
+
+            const workbook = new ExcelJS.Workbook();
+            await workbook.xlsx.readFile(pathData);
+            const currentWorkSheet = workbook.worksheets[1]
+
+            currentWorkSheet.getColumn('F').width = 30;
+
+            // NIK
+            currentWorkSheet.getCell("F9").value = `: ${Result.nik}`;
+
+            // Nama Lengkap
+            currentWorkSheet.getCell("F10").value = `: ${Result.namaKaryawan}`;
+
+            // Jenis Kelamin
+            currentWorkSheet.getCell("F11").value = `: ${Result.jenis_kelamin}`;
+
+            // Tempat, Tanggal Lahir
+            currentWorkSheet.getCell("F12").value = `: ${Result.tempat_lahir}, ${Result.tanggal_lahir}`;
+
+            // Status Karyawan
+            currentWorkSheet.getCell("F13").value = `: ${Result.status_karyawan}`;
+
+            // Jabatan
+            currentWorkSheet.getCell("F14").value = `: ${Result.namaJabatan}`;
+
+            // Divisi
+            currentWorkSheet.getCell("F15").value = `: ${Result.namaDivisi}`;
+
+            // Projek
+            currentWorkSheet.getCell("F16").value = `: ${Result.projekNama}`;
+
+            // No Penilaian
+            currentWorkSheet.getCell("I9").value = `: ${Result.noPenilaian}`;
+
+            // Tanggal Penilaian
+            currentWorkSheet.getCell("I10").value = `: ${Result.tglPenilaian}`;
+
+            // Photo
+            const image = workbook.addImage({
+                filename: path.join('src', 'static-img', 'hamdan.jpeg'),
+                extension: 'jpeg',
+              });
+
+            //   'B8:C14'
+              currentWorkSheet.addImage(image, {
+                tl: { col: 1.5, row: 7.5 },
+                br: { col: 2.9, row: 15.5 }
+              });
+
+            
+            // Nilai Subkriteria
+            Result.aspek_penilaian.forEach((e, i) => {
+                currentWorkSheet.getRow(10 + (i + 1)).getCell(10).value = `=    ${e.nilai}`
+            })
+
+            // Hasil Akhir
+            currentWorkSheet.getCell('J16').value = `=    ${Result.nilaiHasil}`
+            // Tanggal Tanda Tangan 
+            currentWorkSheet.getCell('H19').value = `Jakarta, ${new Date().toLocaleDateString('id-ID', {
+                weekday: undefined, year: "numeric", month: "long", day: "numeric" 
+            })}`;
+            await workbook.xlsx.writeFile(pathDataDownload)
+
+            return pathDataDownload
+        } catch (error) {
+            throw error;
         }
     }
 }
