@@ -13,7 +13,7 @@ const KriteriaController = {
             const Result = await KriteriaService.findAll();
             return Responses.success(res, Result);
         } catch (error) {
-            Responses.failed(res, error, next)
+            return Responses.failed(res, error, next)
         }
     },
     findByKriteriaId: async (req, res, next) => {
@@ -29,7 +29,7 @@ const KriteriaController = {
             const Result = await KriteriaService.findByKriteriaId(kriteria_id);
             return Responses.success(res, Result);
         } catch (error) {
-            Responses.failed(res, error, next)
+            return Responses.failed(res, error, next)
         }
     }
     ,

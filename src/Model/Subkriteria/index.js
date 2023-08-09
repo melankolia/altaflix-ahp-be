@@ -38,6 +38,18 @@ const SubkriteriaModel = {
             })
         });
     },
+    insertNilaiBobotAndEigen: async (payload) => {
+        const sql = `UPDATE subkriteria SET
+                                eigen = ?,
+                                bobot_prioritas = ?
+                            where subkriteria_id = ?`;
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [payload.eigen, payload.bobot_prioritas, payload.subkriteria_id], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
+    },
     createSubkriteria: async (PayloadSubkriteria) => {
         const sql = `INSERT INTO subkriteria (nama, keterangan, nilai, kriteria_id) VALUES ?`;
         return new Promise((resolve, reject) => {

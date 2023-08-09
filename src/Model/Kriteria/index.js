@@ -29,6 +29,18 @@ const KriteriaModel = {
             })
         });
     },
+    insertNilaiBobotAndEigen: async (payload) => {
+        const sql = `UPDATE kriteria SET
+                                eigen = ?,
+                                bobot_prioritas = ?
+                            where kriteria_id = ?`;
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [payload.eigen, payload.bobot_prioritas, payload.kriteria_id], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
+    },
     createKriteria: async (PayloadKriteria) => {
         const sql = `INSERT INTO kriteria SET ?`;
         return new Promise((resolve, reject) => {

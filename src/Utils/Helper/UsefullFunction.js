@@ -7,6 +7,9 @@ const useFullFunction = {
             source.splice(randomIndex, 1)
         }
         return result
+    },
+    convertToCamelCase(str) {
+        return str && str.split(" ").map((e, i) =>  i != 0 ? e[0].toUpperCase() + e.substring(1) : e[0].toLowerCase() + e.substring(1)).join("")
     }
 };
 
