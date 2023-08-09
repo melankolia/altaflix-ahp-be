@@ -42,6 +42,8 @@ const NilaiService = {
             const [Result] = await NilaiModel.findById(payload);
             if (!Result) return "Data Not Found";
 
+            Result.aspek_penilaian = [];
+            Result.penilaian_id = Result.penilaian_id.split(',')
             Result.subkriteria = Result.subkriteria.split(',')
             for (let j = 0; j < Result.subkriteria.length; j++) {
                 let subObj = {}
@@ -50,6 +52,7 @@ const NilaiService = {
                     subObj = null
                 } else {
                     subObj = {
+                        penilaian_id: +Result.penilaian_id[j],
                         subkriteria_id: ResultSub.subkriteria_id,
                         nama: ResultSub.nama,
                         nilai: ResultSub.nilai,
@@ -59,8 +62,10 @@ const NilaiService = {
                     }
                 }
                 Result[useFullFunction.convertToCamelCase(subObj.kriteria_nama)] = subObj.nilai
+                Result.aspek_penilaian = [ ...Result.aspek_penilaian, { ...subObj } ]
             }
 
+            delete Result.penilaian_id;
             delete Result.subkriteria;
 
             return Result
@@ -70,19 +75,29 @@ const NilaiService = {
     },
     insertData: async (payload) => {
         try {
-            const { aspek_penilaian, ...another } = payload;
+            const { aspek_penilaian, nilai_id, ...another } = payload;
 
-            console.log(another);
+            // Create Data if nilai_id is not provided
+            if (!nilai_id) {
+                const Nilai = await NilaiModel.insertData(another)
+                if (!Nilai) return "Error Create Data";
+    
+                aspek_penilaian.map(e => {
+                    e.nilai_id = Nilai.insertId
+                })
+    
+                const Penilaian = await PenilaianModel.insertData(aspek_penilaian);
+                if (!Penilaian) return "Error Create Data Penilaian"
+            } else {
+                const Nilai = await NilaiModel.updateData({...another, nilai_id})
+                if (!Nilai) return "Error Update Data";
 
-            const Nilai = await NilaiModel.insertData(another)
-            if (!Nilai) return "Error Create Data";
+                for (let i = 0; i < aspek_penilaian.length; i++) {
+                    const Penilaian = await PenilaianModel.updateData(aspek_penilaian[i])
+                    if (!Penilaian) return "Error Update Data Penilaian"
+                }
 
-            aspek_penilaian.map(e => {
-                e.nilai_id = Nilai.insertId
-            })
-
-            const Penilaian = await PenilaianModel.insertData(aspek_penilaian);
-            if (!Penilaian) return "Error Create Data Penilaian"
+            }
 
             return true;
         } catch (error) {

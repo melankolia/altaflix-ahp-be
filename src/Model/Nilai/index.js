@@ -2,7 +2,7 @@ import Database from "../../Utils/Configs/db.js";
 
 const NilaiModel = {
     findAll: async (payload) => {
-        const sql = `select 		
+        const sql = `select 	
                                 nilai_karyawan.nilai_id,
                                 no_penilaian as noPenilaian,
                                 tanggal_penilaian as tglPenilaian,
@@ -27,6 +27,7 @@ const NilaiModel = {
     },
     findById: async (payload) => {
         const sql = `select 		
+                                karyawan.karyawan_id,
                                 nilai_karyawan.nilai_id,
                                 no_penilaian as noPenilaian,
                                 tanggal_penilaian as tglPenilaian,
@@ -37,6 +38,7 @@ const NilaiModel = {
                                 periode,
                                 nilai_hasil as nilaiHasil,
                                 image,
+                                GROUP_CONCAT(penilaian.penilaian_id) as penilaian_id,
                                 GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria
                         FROM nilai_karyawan
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
@@ -79,6 +81,24 @@ const NilaiModel = {
             })
         });
     },
+    updateData: async (payload) => {
+        const sql = `UPDATE 
+                            nilai_karyawan SET
+                            nilai_hasil = ?,
+                            persentase = ?,
+                            lama_kerja = ?,
+                            periode = ?,
+                            no_penilaian = ?,
+                            tanggal_penilaian = ?
+                        where nilai_karyawan.nilai_id = ? `;
+
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [payload.nilai_hasil, payload.persentase, payload.lama_kerja, payload.periode, payload.no_penilaian, payload.tanggal_penilaian, payload.nilai_id], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
+    }
 };
 
 export default NilaiModel;

@@ -9,6 +9,15 @@ const PenilaianModel = {
                 else reject(err)
             })
         });
+    },
+    updateData: async (payload) => {
+        const sql = `UPDATE penilaian SET subkriteria_id = ? where penilaian_id = ?`;
+        return new Promise((resolve, reject) => {
+            Database.query(sql, [payload.subkriteria_id, payload.penilaian_id], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
     }
 };
 
