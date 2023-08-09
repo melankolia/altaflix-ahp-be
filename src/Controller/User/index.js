@@ -95,8 +95,6 @@ const UserController = {
                 user_id: +req.params.user_id
             };
 
-            console.log(payload);
-
             const Result = await UserService.deleteUser(payload);
             return Responses.success(res, Result);
         } catch (error) {

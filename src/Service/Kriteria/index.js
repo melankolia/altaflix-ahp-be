@@ -65,13 +65,28 @@ const KriteriaService = {
             const [Kriteria] = await KriteriaModel.findByKriteriaId(PayloadKriteria.kriteria_id);
             if (!Kriteria) throw "Kriteria is Not Found";
 
-
             const Result = await KriteriaModel.updateKriteria(PayloadKriteria);
             if (!Result) throw "Error Update"
-            
-            for (let i = 0; i < PayloadKriteria.subkriteria.length; i++) {
-                const Result = await SubkriteriaModel.updateSubkriteria(PayloadKriteria.subkriteria[i]);
-                if (!Result) throw "Error Update"
+
+            const { subkriteria, ...payload } = PayloadKriteria;
+
+            subkriteria.map(e => {
+                e.kriteria_id = Kriteria.kriteria_id
+            })
+
+            let isUpdate = subkriteria.length > 0 && subkriteria.every(e => e.subkriteria_id);
+ 
+            if (isUpdate) {
+                for (let i = 0; i < subkriteria.length; i++) {
+                    if (subkriteria[i].subkriteria_id) {
+                        const Result = await SubkriteriaModel.updateSubkriteria(subkriteria[i]);
+                        if (!Result) throw "Error Update"
+                    }
+                }
+            } else {
+                // Create Subkriteria
+                const ResultSub = await SubkriteriaModel.createSubkriteria(subkriteria)
+                if (!ResultSub) throw "Error Create Subkriteria"
             }
 
 

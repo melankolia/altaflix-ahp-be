@@ -130,7 +130,6 @@ const PerhitunganService = {
             const ResultSubkriteria = await SubkriteriaModel.findByKriteriaId(payload.kriteria_id)
 
             let listSubKriteria = []
-            console.log(ResultSubkriteria);
             ResultSubkriteria.forEach(e => {
                 listSubKriteria = [...listSubKriteria, {
                     nama: useFullFunction.convertToCamelCase(e.nama),
@@ -226,15 +225,6 @@ const PerhitunganService = {
                 })
                 PayloadSubkriteria = [...PayloadSubkriteria, ...arraObj]
             }
-
-            PayloadSubkriteria.forEach(e => {
-                console.log({
-                    xIndex: e.xIndex,
-                    yIndex: e.yIndex,
-                    value: e.value,
-                    matriks_id: e.matriks_id,
-                });
-            })
 
             // Update kriteria if isUpdate is true
             if (isUpdate) {
