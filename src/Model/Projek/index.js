@@ -18,7 +18,11 @@ const ProjekModel = {
         });
     },
     findByProjekId: async (projek_id) => {
-        const sql = `SELECT *   FROM projek 
+        const sql = `SELECT projek.code as code,
+                            projek.nama as nama,
+                            divisi.divisi_id,
+                            projek_id
+                                FROM projek 
                                 left join divisi on projek.divisi_id = divisi.divisi_id
                                 where projek_id = ?`;
         return new Promise((resolve, reject) => {
