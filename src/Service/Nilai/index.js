@@ -1,5 +1,7 @@
 import NilaiModel from "../../Model/Nilai/index.js";
 import PenilaianModel from "../../Model/Penilaian/index.js";
+import KriteriaModel from "../../Model/Kriteria/index.js";
+import SubkriteriaModel from "../../Model/Subkriteria/index.js";
 import useFullFunction from "../../Utils/Helper/UsefullFunction.js";
 import ExcelJS from "exceljs"
 import path from "path";
@@ -8,6 +10,7 @@ const NilaiService = {
     findAll: async (payload) => {
         try {
             const Result = await NilaiModel.findAll();
+            console.log(Result);
             if (Result.length == 0) return "Data Not Found";
 
             for (let i = 0; i < Result.length; i++) {
@@ -42,6 +45,7 @@ const NilaiService = {
     findById: async (payload) => {
         try {
             const [Result] = await NilaiModel.findById(payload);
+            console.log(Result);
             if (!Result) return "Data Not Found";
 
             Result.aspek_penilaian = [];
@@ -232,6 +236,37 @@ const NilaiService = {
             await workbook.xlsx.writeFile(pathDataDownload)
 
             return pathDataDownload
+        } catch (error) {
+            throw error;
+        }
+    },
+    findAspekPenilaian: async () => {
+        try {
+            const Result = await KriteriaModel.findAll();
+            if (Result.length == 0) return "No Results Found";
+
+            for (let i = 0; i < Result.length; i++) {
+                const ResultSub = await SubkriteriaModel.findByKriteriaId(Result[i].kriteria_id)
+                if (ResultSub.length > 0) {
+                    Result[i].subkriteria = [ ...ResultSub.map(e => ({
+                        ...e,
+                        bobotKriteria: Result[i].bobot_prioritas 
+                    })) ]
+                } else {
+                    Result[i].subkriteria = null
+                }
+            }
+
+            return Result;
+        } catch (error) {
+            throw error;
+        }
+    },
+    findLatestNilaiId: async () => {
+        try {
+            const [Result] = await NilaiModel.findLatestNilaiId();
+
+            return Result
         } catch (error) {
             throw error;
         }

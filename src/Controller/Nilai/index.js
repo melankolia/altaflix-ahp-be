@@ -97,6 +97,37 @@ const NilaiController = {
         } catch (error) {
             return Responses.failed(res, error, next)
         }
+    },
+    findAspekPenilaian: async (req, res, next) => {
+        // try {
+            
+        // } catch (error) {
+        //     return Responses.badRequest(res, error, next)
+        // }
+
+
+        try {
+            const Result = await NilaiService.findAspekPenilaian();
+
+            return Responses.success(res, Result);
+        } catch (error) {
+            return Responses.failed(res, error, next)
+        }
+    },
+    findLatestNilaiId: async (req, res, next) => {
+        // try {
+            
+        // } catch (error) {
+        //     return Responses.badRequest(res, error, next)
+        // }
+
+        try {
+            const Result = await NilaiService.findLatestNilaiId();
+
+            return Responses.success(res, Result);
+        } catch (error) {
+            return Responses.failed(res, error, next)
+        }
     }
 };
 

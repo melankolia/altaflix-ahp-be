@@ -2,24 +2,31 @@ import Database from "../../Utils/Configs/db.js";
 
 const NilaiModel = {
     findAll: async (payload) => {
-        const sql = `select 	
+        const sql = `SELECT
                                 nilai_karyawan.nilai_id,
                                 no_penilaian as noPenilaian,
                                 tanggal_penilaian as tglPenilaian,
                                 nik,
                                 karyawan.nama as namaKaryawan,
                                 jabatan as namaJabatan,
-                                divisi.nama as namaDivisi,
                                 periode,
                                 nilai_hasil as nilaiHasil,
-                                GROUP_CONCAT(DISTINCT projek.nama) as projekNama,
-                                GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria
+                                GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria,
+                                projek_temp.namaDivisi,
+                                projek_temp.namaProjek
                         FROM nilai_karyawan
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
                         inner join penilaian on nilai_karyawan.nilai_id = penilaian.nilai_id 
-                        inner join divisi on karyawan.divisi_id = divisi.divisi_id
-                        inner join projek on divisi.divisi_id = projek.divisi_id
-                        GROUP BY nilai_id;`
+                        inner join (
+                            select 	    projek.nama as namaProjek,
+                                        divisi.nama as namaDivisi,
+                                        divisi.divisi_id,
+                                        projek.projek_id
+                                        from projek 
+                                inner join divisi on projek.divisi_id = divisi.divisi_id
+                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id 
+                        GROUP BY nilai_id
+                        ORDER BY nilai_hasil DESC;`
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)
@@ -33,6 +40,7 @@ const NilaiModel = {
                                 karyawan.jenis_kelamin,
                                 karyawan.tempat_lahir,
                                 karyawan.tanggal_lahir,
+                                karyawan.tanggal_masuk,
                                 karyawan.status_karyawan,
                                 nilai_karyawan.nilai_id,
                                 no_penilaian as noPenilaian,
@@ -40,18 +48,24 @@ const NilaiModel = {
                                 nik,
                                 karyawan.nama as namaKaryawan,
                                 jabatan as namaJabatan,
-                                divisi.nama as namaDivisi,
-                                GROUP_CONCAT(DISTINCT projek.nama) as projekNama,
                                 periode,
                                 nilai_hasil as nilaiHasil,
                                 image,
+                                projek_temp.namaDivisi,
+                                projek_temp.namaProjek,
                                 GROUP_CONCAT(penilaian.penilaian_id) as penilaian_id,
                                 GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria
                         FROM nilai_karyawan
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
                         inner join penilaian on nilai_karyawan.nilai_id = penilaian.nilai_id 
-                        inner join divisi on karyawan.divisi_id = divisi.divisi_id
-                        inner join projek on divisi.divisi_id = projek.divisi_id
+                        inner join (
+                            select 	    projek.nama as namaProjek,
+                                        divisi.nama as namaDivisi,
+                                        divisi.divisi_id,
+                                        projek.projek_id
+                                        from projek 
+                                inner join divisi on projek.divisi_id = divisi.divisi_id
+                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id 
                         where nilai_karyawan.nilai_id = ?
                         GROUP BY nilai_id;`
         return new Promise((resolve, reject) => {
@@ -116,6 +130,17 @@ const NilaiModel = {
                 else reject(err)
             })
         })
+    },
+    findLatestNilaiId: async () => {
+        const sql = `select MAX(nilai_id) as latest_id from nilai_karyawan;`;
+
+        return new Promise((resolve, reject) => {
+            Database.query(sql, (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        })  
+        
     }
 };
 
