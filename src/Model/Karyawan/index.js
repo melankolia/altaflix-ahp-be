@@ -3,7 +3,39 @@ import Database from "../../Utils/Configs/db.js"
 
 const Karyawan = {
     findAll: async (payload) => {
-        const sql = `SELECT * FROM karyawan`;
+        const sql = `SELECT 
+                            karyawan.karyawan_id,
+                            karyawan.agama,
+                            karyawan.alamat,
+                            karyawan.divisi_id,
+                            karyawan.projek_id,
+                            karyawan.image,
+                            karyawan.jabatan,
+                            karyawan.jenis_kelamin,
+                            karyawan.nama,
+                            karyawan.nik,
+                            karyawan.no_ktp,
+                            karyawan.no_telpon,
+                            karyawan.npwp,
+                            karyawan.pendidikan_terakhir,
+                            karyawan.projek_id,
+                            karyawan.status_karyawan,
+                            karyawan.status_pernikahan,
+                            karyawan.tanggal_lahir,
+                            karyawan.tanggal_masuk,
+                            karyawan.tempat_lahir,
+                            projek_temp.namaProjek,
+                            projek_temp.namaDivisi
+                        FROM karyawan
+                        inner join (
+                            select 	    projek.nama as namaProjek,
+                                        divisi.nama as namaDivisi,
+                                        divisi.divisi_id,
+                                        projek.projek_id
+                                        from projek 
+                                inner join divisi on projek.divisi_id = divisi.divisi_id
+                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id;`;
+                                
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)
@@ -12,7 +44,39 @@ const Karyawan = {
         });
     },
     findByKaryawanId: async (karyawan_id) => {
-        const sql = `SELECT * FROM karyawan where karyawan_id = ?`;
+        const sql = `SELECT 
+                            karyawan.karyawan_id,
+                            karyawan.agama,
+                            karyawan.alamat,
+                            karyawan.divisi_id,
+                            karyawan.projek_id,
+                            karyawan.image,
+                            karyawan.jabatan,
+                            karyawan.jenis_kelamin,
+                            karyawan.nama,
+                            karyawan.nik,
+                            karyawan.no_ktp,
+                            karyawan.no_telpon,
+                            karyawan.npwp,
+                            karyawan.pendidikan_terakhir,
+                            karyawan.projek_id,
+                            karyawan.status_karyawan,
+                            karyawan.status_pernikahan,
+                            karyawan.tanggal_lahir,
+                            karyawan.tanggal_masuk,
+                            karyawan.tempat_lahir,
+                            projek_temp.namaProjek,
+                            projek_temp.namaDivisi
+                    FROM karyawan 
+                        inner join (
+                            select 	    projek.nama as namaProjek,
+                                        divisi.nama as namaDivisi,
+                                        divisi.divisi_id,
+                                        projek.projek_id
+                                        from projek 
+                                inner join divisi on projek.divisi_id = divisi.divisi_id
+                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id
+                    where karyawan_id = ?`;
         return new Promise((resolve, reject) => {
             Database.query(sql, [karyawan_id], (err, response) => {
                 if (!err) resolve(response)

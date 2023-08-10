@@ -9,6 +9,8 @@ const PerhitunganService = {
             const Result = await PerhitunganModel.getKriteria();
             const ResultKriteria = await KriteriaModel.findAll();
 
+            // console.log(Result, ResultKriteria);
+
             let listKriteria = []
             ResultKriteria.forEach(e => {
                 listKriteria = [...listKriteria, {
@@ -163,7 +165,7 @@ const PerhitunganService = {
             } else if (ResultSubkriteria.length > 0) {
                 Perhitungan = ResultSubkriteria.map((e, i) => {
                     let obj = {
-                        kriteria: e.kategori,
+                        kriteria: e.nama,
                         kriteria_id: listSubKriteria[i].kriteria_id,
                         subkriteria_id: listSubKriteria[i].subkriteria_id
                     };
