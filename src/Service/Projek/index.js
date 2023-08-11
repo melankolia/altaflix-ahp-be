@@ -1,10 +1,10 @@
 import ProjekModel from "../../Model/Projek/index.js";
 
 const ProjekService = {
-    findAll: async () => {
+    findAll: async (payload) => {
         try {
 
-            const Result = await ProjekModel.findAll();
+            const Result = await ProjekModel.findAll(payload);
             if (Result.length == 0) return "Data Not Found";
 
             return Result;

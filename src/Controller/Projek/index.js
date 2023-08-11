@@ -10,7 +10,11 @@ const ProjekController = {
         // }
 
         try {
-            const Result = await ProjekService.findAll();
+            const payload = {
+                search: req.query?.search || "",
+                sort: req.query?.sort || "projek.nama ASC",
+            }
+            const Result = await ProjekService.findAll(payload);
             return Responses.success(res, Result);
         } catch (error) {
             Responses.failed(res, error, next)

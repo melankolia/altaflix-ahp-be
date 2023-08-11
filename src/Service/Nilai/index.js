@@ -9,7 +9,7 @@ import path from "path";
 const NilaiService = {
     findAll: async (payload) => {
         try {
-            const Result = await NilaiModel.findAll();
+            const Result = await NilaiModel.findAll(payload);
             console.log(Result);
             if (Result.length == 0) return "Data Not Found";
 

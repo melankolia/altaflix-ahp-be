@@ -3,7 +3,10 @@ import Database from "../../Utils/Configs/db.js"
 
 const DivisiModel = {
     findAll: async (payload) => {
-        const sql = `SELECT * FROM divisi`;
+        const sql = `SELECT * FROM divisi
+                            where nama LIKE '%${payload.search}%' OR code LIKE '%${payload.search}%'
+                            ORDER BY ${payload.sort}`;
+
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)

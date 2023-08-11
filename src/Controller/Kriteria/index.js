@@ -10,7 +10,11 @@ const KriteriaController = {
         // }
 
         try {
-            const Result = await KriteriaService.findAll();
+            const payload = {
+                search: req.query?.search || "",
+                sort: req.query?.sort || "nama ASC"
+            }
+            const Result = await KriteriaService.findAll(payload);
             return Responses.success(res, Result);
         } catch (error) {
             return Responses.failed(res, error, next)

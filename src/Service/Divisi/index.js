@@ -1,10 +1,10 @@
 import DivisiModel from "../../Model/Divisi/index.js";
 
 const DivisiService = {
-    findAll: async () => {
+    findAll: async (payload) => {
         try {
 
-            const Result = await DivisiModel.findAll();
+            const Result = await DivisiModel.findAll(payload);
             if (Result.length == 0) return "Data Not Found";
 
             return Result;

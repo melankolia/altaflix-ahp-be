@@ -2,9 +2,9 @@ import UserModel from "../../Model/User/index.js";
 import JWT from "jsonwebtoken";
 
 const UserService = {
-  findAll: async () => {
+  findAll: async (payload) => {
     try {
-      const Result = await UserModel.findAll();
+      const Result = await UserModel.findAll(payload);
       if (Result.length == 0) return "Data Not Found";
 
       return Result;

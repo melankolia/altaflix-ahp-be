@@ -10,7 +10,12 @@ const Karyawan = {
         // }
 
         try {
-            const Result = await KaryawanService.findAll();
+            const payload = {
+                search: req.query?.search || "",
+                sort: req.query?.sort || 'karyawan.nama ASC',
+                tab: req.query?.tab || ""
+            }
+            const Result = await KaryawanService.findAll(payload);
             return Responses.success(res, Result);
         } catch (error) {
             Responses.failed(res, error, next)

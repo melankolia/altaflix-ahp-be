@@ -3,7 +3,10 @@ import Database from "../../Utils/Configs/db.js"
 
 const UserModel = {
     findAll: async (payload) => {
-        const sql = `SELECT * FROM user`;
+        const sql = `SELECT * FROM user 
+                        where nama_lengkap LIKE '%${payload.search}%' OR username LIKE '%${payload.search}%'
+                        ORDER BY ${payload.sort}`;
+
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)

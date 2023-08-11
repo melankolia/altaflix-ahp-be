@@ -2,7 +2,11 @@ import Database from "../../Utils/Configs/db.js"
 
 
 const Karyawan = {
-    findAll: async (payload) => {
+    findAll: async (payload = {
+        search: "",
+        sort: "karyawan.nama ASC",
+        tab: ""
+    }) => {
         const sql = `SELECT 
                             karyawan.karyawan_id,
                             karyawan.agama,
@@ -33,7 +37,17 @@ const Karyawan = {
                                         projek.projek_id
                                         from projek 
                                 inner join divisi on projek.divisi_id = divisi.divisi_id
-                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id;`;
+                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id
+                        WHERE 
+                            (   
+                                karyawan.nama LIKE '%${payload.search}%' OR 
+                                projek_temp.namaDivisi LIKE '%${payload.search}%' OR 
+                                karyawan.jabatan LIKE '%${payload.search}%' OR
+                                projek_temp.namaProjek LIKE '%${payload.search}%'
+                            )   
+                                AND
+                                projek_temp.divisi_id LIKE '%${payload.tab}%'
+                        ORDER BY ${payload.sort}`;
                                 
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {

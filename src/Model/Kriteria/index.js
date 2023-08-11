@@ -2,8 +2,13 @@ import Database from "../../Utils/Configs/db.js"
 
 
 const KriteriaModel = {
-    findAll: async (payload) => {
-        const sql = `SELECT * FROM kriteria`;
+    findAll: async (payload = {
+        search: "",
+        sort: "code ASC"
+    }) => {
+        const sql = `SELECT * FROM kriteria 
+                                where nama LIKE '%${payload.search}%' OR code LIKE '%${payload.search}%'
+                                ORDER BY ${payload.sort}`
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)

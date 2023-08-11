@@ -13,7 +13,8 @@ const NilaiModel = {
                                 nilai_hasil as nilaiHasil,
                                 GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria,
                                 projek_temp.namaDivisi,
-                                projek_temp.namaProjek
+                                projek_temp.namaProjek,
+                                RANK() OVER(ORDER BY nilai_hasil) rangking
                         FROM nilai_karyawan
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
                         inner join penilaian on nilai_karyawan.nilai_id = penilaian.nilai_id 
@@ -25,8 +26,19 @@ const NilaiModel = {
                                         from projek 
                                 inner join divisi on projek.divisi_id = divisi.divisi_id
                         ) as projek_temp on projek_temp.projek_id = karyawan.projek_id 
+                        WHERE 
+                            ( 
+                                karyawan.nama LIKE '%${payload.search}%' OR 
+                                karyawan.nik LIKE '%${payload.search}%' OR
+                                karyawan.jabatan LIKE '%${payload.search}%' OR
+                                periode LIKE '%${payload.search}%' OR
+                                projek_temp.namaDivisi LIKE '%${payload.search}%' OR
+                                projek_temp.namaProjek LIKE '%${payload.search}%'
+                            ) 
+                                AND
+                                projek_temp.divisi_id LIKE '%${payload.tab}%'
                         GROUP BY nilai_id
-                        ORDER BY nilai_hasil DESC;`
+                        ORDER BY ${payload.sort}`;
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)

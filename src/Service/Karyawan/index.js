@@ -1,10 +1,10 @@
 import KaryawanModel from "../../Model/Karyawan/index.js";
 
 const KaryawanService = {
-    findAll: async () => {
+    findAll: async (payload) => {
         try {
 
-            const Result = await KaryawanModel.findAll();
+            const Result = await KaryawanModel.findAll(payload);
             if (Result.length == 0) return "Data Not Found";
 
             return Result;

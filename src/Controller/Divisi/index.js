@@ -10,7 +10,11 @@ const DivisiController = {
         // }
 
         try {
-            const Result = await DivisiService.findAll();
+            const payload = {
+                search: req.query?.search || "",
+                sort: req.query?.sort || "nama ASC"
+            }
+            const Result = await DivisiService.findAll(payload);
             return Responses.success(res, Result);
         } catch (error) {
             Responses.failed(res, error, next)

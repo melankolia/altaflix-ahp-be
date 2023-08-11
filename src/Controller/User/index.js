@@ -10,7 +10,11 @@ const UserController = {
         // }
 
         try {
-            const Result = await UserService.findAll();
+            const payload = {
+                search: req.query?.search || '',
+                sort: req.query?.sort || 'username ASC'
+            }
+            const Result = await UserService.findAll(payload);
             return Responses.success(res, Result);
         } catch (error) {
             Responses.failed(res, error, next)

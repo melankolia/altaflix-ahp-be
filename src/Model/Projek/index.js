@@ -9,7 +9,10 @@ const ProjekModel = {
                                 divisi.divisi_id,
                                 divisi.nama as namaDivisi
                             FROM projek 
-                            inner join divisi on projek.divisi_id = divisi.divisi_id;`;
+                            inner join divisi on projek.divisi_id = divisi.divisi_id
+                            where projek.nama LIKE '%${payload.search}%' OR projek.code LIKE '%${payload.search}%'
+                            ORDER BY ${payload.sort}`;
+
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)

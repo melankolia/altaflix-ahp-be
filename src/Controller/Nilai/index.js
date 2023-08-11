@@ -11,7 +11,12 @@ const NilaiController = {
 
 
         try {
-            const Result = await NilaiService.findAll();
+            const payload = {
+                search: req.query?.search || "",
+                sort: req.query?.sort || "nilai_hasil DESC",
+                tab: req.query?.tab || ""
+            }
+            const Result = await NilaiService.findAll(payload);
 
             return Responses.success(res, Result);
         } catch (error) {

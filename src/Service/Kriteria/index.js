@@ -2,10 +2,10 @@ import KriteriaModel from "../../Model/Kriteria/index.js";
 import SubkriteriaModel from "../../Model/Subkriteria/index.js";
 
 const KriteriaService = {
-    findAll: async () => {
+    findAll: async (payload) => {
         try {
 
-            const Result = await KriteriaModel.findAll();
+            const Result = await KriteriaModel.findAll(payload);
             if (Result.length == 0) return "Data Not Found";
 
             // Find Subkriteria
