@@ -1,5 +1,7 @@
 import Responses from "../../Utils/Helper/Response.js";
 import KaryawanService from "../../Service/Karyawan/index.js";
+import Multer from "../../Utils/Configs/multer.js"
+import path from "path";
 
 const Karyawan = {
     findAllKaryawan: async (req, res, next) => {
@@ -105,7 +107,25 @@ const Karyawan = {
         } catch (error) {
             return Responses.failed(res, error, next);
         }
+    },
+    uploadPhoto: async (req, res, next) => {
+        try {
+            if (!req.query?.fileName) throw "File Name Required"
+        } catch (error) {
+            return Responses.badRequest(res, error, next);
+        }
 
+        try {
+            const Upload = Multer.single('file')
+            Upload(req, res, async (err) => {
+                if (err) throw "Error Uploading File"
+
+                const directory = path.join("src", "static-img")
+                Responses.success(res, { imageUri: req.file?.path.replace(directory, "") });
+            })
+        } catch (error) {
+            return Responses.failed(res, error, next);
+        }
     }
 }
 

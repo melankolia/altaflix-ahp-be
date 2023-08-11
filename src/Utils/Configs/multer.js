@@ -1,21 +1,21 @@
-import { Request } from "express";
 import multer from "multer"
 import path from "path";
 import fs from "fs";
 
 const storage = multer.diskStorage({
-  destination(req: Request, file: any, cb) {
+  destination(req, file, cb) {
     const pathUri = path.join(
+      'src',
       'static-img',
       'images',
-      req.query.secureId as string,
-      req.query.question as string
     )
+
+    console.log(pathUri);
     fs.mkdirSync(pathUri, { recursive: true })
     cb(null, pathUri)
   },
-  filename(req: Request, file: any, cb) {
-    cb(null, req.query.fileName as string)
+  filename(req, file, cb) {
+    cb(null, req.query.karyawanId + '.jpeg')
   }
 })
 const Upload = multer({ storage: storage });
