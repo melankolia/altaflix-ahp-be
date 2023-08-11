@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     cb(null, pathUri)
   },
   filename(req, file, cb) {
-    cb(null, req.query.karyawanId + '.jpeg')
+    cb(null, req.query.fileName)
   }
 })
 const Upload = multer({ storage: storage });
