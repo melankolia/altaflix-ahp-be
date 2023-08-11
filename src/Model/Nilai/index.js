@@ -1,7 +1,11 @@
 import Database from "../../Utils/Configs/db.js";
 
 const NilaiModel = {
-    findAll: async (payload) => {
+    findAll: async (payload = {
+        search: '',
+        sort: "nilai_hasil ASC",
+        tab: ""
+    }) => {
         const sql = `SELECT
                                 nilai_karyawan.nilai_id,
                                 no_penilaian as noPenilaian,

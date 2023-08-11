@@ -129,16 +129,17 @@ const NilaiService = {
             const workbook = new ExcelJS.Workbook();
             await workbook.xlsx.readFile(pathData);
             const currentWorkSheet = workbook.worksheets[0];
+            console.log(Result);
 
             Result.forEach((e, i) => {
-                const { nilai_id, noPenilaian, tglPenilaian, nik, namaKaryawan, namaJabatan, namaDivisi, periode, nilaiHasil, projekNama, ...other } = e;
-                currentWorkSheet.getRow(9 + (i + 1)).getCell(3).value = i + 1;
+                const { nilai_id, noPenilaian, tglPenilaian, nik, namaKaryawan, namaJabatan, namaDivisi, periode, nilaiHasil, namaProjek, rangking, ...other } = e;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(3).value = rangking;
                 currentWorkSheet.getRow(9 + (i + 1)).getCell(4).value = noPenilaian;
                 currentWorkSheet.getRow(9 + (i + 1)).getCell(5).value = tglPenilaian;
                 currentWorkSheet.getRow(9 + (i + 1)).getCell(6).value = nik;
                 currentWorkSheet.getRow(9 + (i + 1)).getCell(7).value = namaKaryawan;
                 currentWorkSheet.getRow(9 + (i + 1)).getCell(8).value = namaJabatan;
-                currentWorkSheet.getRow(9 + (i + 1)).getCell(9).value = projekNama;
+                currentWorkSheet.getRow(9 + (i + 1)).getCell(9).value = namaProjek;
 
 
                 const keys = Object.keys(other);
@@ -147,7 +148,6 @@ const NilaiService = {
 
                     if (i2 == keys.length - 1) {
                         currentWorkSheet.getRow(9 + (i + 1)).getCell(15).value = nilaiHasil
-                        console.log(nilaiHasil);
                     }
                 })
                 
@@ -209,9 +209,11 @@ const NilaiService = {
             // Tanggal Penilaian
             currentWorkSheet.getCell("I10").value = `: ${Result.tglPenilaian}`;
 
+            const imagePath = Result.image.split("/")
+
             // Photo
             const image = workbook.addImage({
-                filename: path.join('src', 'static-img', 'hamdan.jpeg'),
+                filename: path.join('src', 'static-img', 'images', imagePath[imagePath.length - 1]),
                 extension: 'jpeg',
               });
 
