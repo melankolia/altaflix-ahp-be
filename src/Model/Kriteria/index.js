@@ -4,7 +4,7 @@ import Database from "../../Utils/Configs/db.js"
 const KriteriaModel = {
     findAll: async (payload = {
         search: "",
-        sort: "code ASC"
+        sort: "kriteria_id ASC"
     }) => {
         const sql = `SELECT * FROM kriteria 
                                 where nama LIKE '%${payload.search}%' OR code LIKE '%${payload.search}%'
@@ -68,7 +68,7 @@ const KriteriaModel = {
             })
         });
     },
-    deleteKriteria: async(payload) => {
+    deleteKriteria: async (payload) => {
         const sql = `DELETE FROM kriteria where kriteria_id in ?`
         return new Promise((resolve, reject) => {
             Database.query(sql, [[[payload.kriteria_id]]], (err, response) => {

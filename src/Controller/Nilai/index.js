@@ -4,7 +4,7 @@ import NilaiService from "../../Service/Nilai/index.js";
 const NilaiController = {
     findAll: async (req, res, next) => {
         // try {
-            
+
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
@@ -42,8 +42,8 @@ const NilaiController = {
     },
     insertData: async (req, res, next) => {
         try {
-            if (    !req.body?.karyawan_id ||
-                    req.body?.aspek_penilaian?.length == 0  ) throw "Bad Request"
+            if (!req.body?.karyawan_id ||
+                req.body?.aspek_penilaian?.length == 0) throw "Bad Request"
         } catch (error) {
             return Responses.badRequest(res, error, next)
         }
@@ -79,6 +79,8 @@ const NilaiController = {
         try {
             const Result = await NilaiService.printReport();
 
+            console.log(Result);
+
             return res.download(Result);
         } catch (error) {
             return Responses.failed(res, error, next)
@@ -103,7 +105,7 @@ const NilaiController = {
     },
     findAspekPenilaian: async (req, res, next) => {
         // try {
-            
+
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
@@ -119,7 +121,7 @@ const NilaiController = {
     },
     findLatestNilaiId: async (req, res, next) => {
         // try {
-            
+
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
