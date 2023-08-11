@@ -22,6 +22,17 @@ const KaryawanService = {
             throw error
         }
     },
+    findByNilai: async () => {
+        try {
+
+            const Result = await KaryawanModel.findByNilai();
+            if (Result.length == 0) return "Data Not Found";
+
+            return Result;
+        } catch (error) {
+            throw error
+        }
+    },
     createKaryawan: async (PayloadKaryawan) => {
         try {
             const [User] = await KaryawanModel.findByKaryawanNIK(PayloadKaryawan.nik);

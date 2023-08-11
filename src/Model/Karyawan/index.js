@@ -64,7 +64,8 @@ const Karyawan = {
                             karyawan.tanggal_masuk,
                             karyawan.tempat_lahir,
                             projek_temp.namaProjek,
-                            projek_temp.namaDivisi
+                            projek_temp.namaDivisi,
+                            projek_temp.divisi_id
                     FROM karyawan 
                         inner join (
                             select 	    projek.nama as namaProjek,
@@ -86,6 +87,48 @@ const Karyawan = {
         const sql = `SELECT * FROM karyawan where nik = ?`;
         return new Promise((resolve, reject) => {
             Database.query(sql, [nik], (err, response) => {
+                if (!err) resolve(response)
+                else reject(err)
+            })
+        });
+    },
+    findByNilai: async (payload) => {
+        const sql = ` SELECT 
+                            karyawan.karyawan_id,
+                            karyawan.agama,
+                            karyawan.alamat,
+                            karyawan.projek_id,
+                            karyawan.image,
+                            karyawan.jabatan,
+                            karyawan.jenis_kelamin,
+                            karyawan.nama,
+                            karyawan.nik,
+                            karyawan.no_ktp,
+                            karyawan.no_telpon,
+                            karyawan.npwp,
+                            karyawan.pendidikan_terakhir,
+                            karyawan.projek_id,
+                            karyawan.status_karyawan,
+                            karyawan.status_pernikahan,
+                            karyawan.tanggal_lahir,
+                            karyawan.tanggal_masuk,
+                            karyawan.tempat_lahir,
+                            projek_temp.namaProjek,
+                            projek_temp.namaDivisi
+                        FROM karyawan
+                        inner join (
+                            select 	    projek.nama as namaProjek,
+                                        divisi.nama as namaDivisi,
+                                        divisi.divisi_id,
+                                        projek.projek_id
+                                        from projek 
+                                inner join divisi on projek.divisi_id = divisi.divisi_id
+                        ) as projek_temp on projek_temp.projek_id = karyawan.projek_id
+                        left join nilai_karyawan ON karyawan.karyawan_id = nilai_karyawan.karyawan_id
+                        where nilai_karyawan.karyawan_id IS NULL`;
+                                
+        return new Promise((resolve, reject) => {
+            Database.query(sql, (err, response) => {
                 if (!err) resolve(response)
                 else reject(err)
             })

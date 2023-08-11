@@ -31,8 +31,15 @@ const Karyawan = {
         } catch (error) {
             Responses.failed(res, error, next)
         }
-    }
-    ,
+    },
+    findByNilai: async (req, res, next) => {
+        try {
+            const Result = await KaryawanService.findByNilai();
+            return Responses.success(res, Result);
+        } catch (error) {
+            Responses.failed(res, error, next)
+        }
+    },
     createKaryawan: async (req, res, next) => {
         try {
             if (!req.body?.nik ||
@@ -56,7 +63,6 @@ const Karyawan = {
                 pendidikan_terakhir: req.body?.pendidikan_terakhir,
                 status_karyawan: req.body?.status_karyawan,
                 projek_id: req.body?.projek_id,
-                divisi_id: req.body?.divisi_id,
                 jabatan: req.body?.jabatan,
                 no_ktp: req.body?.no_ktp,
                 npwp: req.body?.npwp,

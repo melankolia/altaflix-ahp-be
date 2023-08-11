@@ -201,7 +201,7 @@ const NilaiService = {
             currentWorkSheet.getCell("F15").value = `: ${Result.namaDivisi}`;
 
             // Projek
-            currentWorkSheet.getCell("F16").value = `: ${Result.projekNama}`;
+            currentWorkSheet.getCell("F16").value = `: ${Result.namaProjek}`;
 
             // No Penilaian
             currentWorkSheet.getCell("I9").value = `: ${Result.noPenilaian}`;
