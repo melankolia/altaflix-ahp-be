@@ -6,7 +6,7 @@
     <title>Laporan Penilaian Karyawan</title>
     <style>
         body {
-            height: 100vh;
+            height: 100%;
             width: 100%;
         }
 
@@ -61,10 +61,10 @@
                 </td>
             </tr>
         </table>
-        <table style="width: 96%" class="custom-table">
+        <table style="width: 97%" class="custom-table">
             <tr>
-                <th style="border: none; text-align: center;">
-                    <p style="font-weight: bold; margin-bottom: 4px; font-size: 16px">Data Penilaian</p>
+                <th style="border: none; text-align: left;">
+                    <p style="font-weight: bold; font-size: 17px">Data Penilaian</p>
                 </th>
                 <th style="border: none;">
                 </th>
@@ -73,59 +73,59 @@
                 <th style="border: none;"></th>
             </tr>
             <tr>
-                <td rowspan="8" style="width: 240px ;background: transparent !important; border: none; text-align: center;">
-                    <img src="data:image/png;base64,{{photoKaryawan}}" width="180" style="margin-right: 12px;">
+                <td rowspan="8" style="width: 155px ;background: transparent !important; border: none; text-align: left; vertical-align: top;">
+                    <img src="data:image/png;base64,{{photoKaryawan}}" width="140" style="margin-right: 12px;">
                     <!-- <img src="./altaflix.png" width="48" style="margin: 12px 0"> -->
                 </td>
                 <td style="width: 130px; border: none;">NIK</td>
-                <td style="width: 180px; border: none;">: {{nik}}</td>
+                <td style="width: 340px; border: none;">: {{nik}}</td>
                 <td style="border: none;">No</td>
                 <td style="border: none;">: {{noPenilaian}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Nama</td>
-                <td style="width: 180px; border: none;">: {{namaKaryawan}}</td>
+                <td style="width: 340px; border: none;">: {{namaKaryawan}}</td>
                 <td style="border-top: none; border-right: none; border-left: none;">Tanggal</td>
                 <td style="border-top: none; border-right: none; border-left: none;">: {{tglPenilaian}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Jenis Kelamin</td>
-                <td style="width: 180px; border: none;">: {{jenis_kelamin}}</td>
+                <td style="width: 340px; border: none;">: {{jenis_kelamin}}</td>
                 <td style="border: none;">Prestasi Pekerjaan</td>
                 <td style="border: none;">: {{prestasiPekerjaan}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Tempat, Tanggal Lahir</td>
-                <td style="width: 180px; border: none;">: {{tempat_lahir}}, {{tanggal_lahir}}</td>
+                <td style="width: 340px; border: none;">: {{tempat_lahir}}, {{tanggal_lahir}}</td>
                 <td style="border: none;">Kemampuan Teknis</td>
                 <td style="border: none;">: {{kemampuanTeknis}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Status Karyawan</td>
-                <td style="width: 180px; border: none;">: {{status_karyawan}}</td>
+                <td style="width: 340px; border: none;">: {{status_karyawan}}</td>
                 <td style="border: none;">Kedisiplinan</td>
                 <td style="border: none;">: {{kedisiplinan}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Jabatan</td>
-                <td style="width: 180px; border: none;">: {{namaJabatan}}</td>
+                <td style="width: 340px; border: none;">: {{namaJabatan}}</td>
                 <td style="border: none;">Komunikasi</td>
                 <td style="border: none;">: {{komunikasi}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Divisi</td>
-                <td style="width: 180px; border: none;">: {{namaDivisi}}</td>
+                <td style="width: 340px; border: none;">: {{namaDivisi}}</td>
                 <td style="border-top: none; border-right: none; border-left: none;">Kerjasama</td>
                 <td style="border-top: none; border-right: none; border-left: none;">: {{kerjasama}}</td>
             </tr>
             <tr>
                 <td style="width: 130px; border: none;">Proyek</td>
-                <td style="width: 180px; border: none;">: {{namaProjek}}</td>
+                <td style="width: 340px; border: none;">: {{namaProjek}}</td>
                 <td style="border: none;">Hasil Akhir</td>
                 <td style="border: none;">: {{nilaiHasil}}</td>
             </tr>
         </table>
-        <table style="width: 100%; margin: 24px 0">
+        <table style="width: 100%; margin: 96px 24px 24px 24px">
             <thead>
                 <tr>
                     <th style="border: none"></th>
@@ -140,8 +140,8 @@
                     <td style="border: none"></td>
                     <td style="border: none"></td>
                     <td style="width: 25%; border: none;">
-                        <p style="margin-right: 40px; margin-bottom: 0">Jakarta, {{dateNow}}</p>
-                        <p style="margin-right: 40px; margin-bottom: 60px; margin-top: 0">Mengetahui,</p>
+                        <p style="margin-right: 40px; margin-bottom: 4px">Jakarta, {{dateNow}}</p>
+                        <p style="margin-right: 40px; margin-bottom: 100px; margin-top: 0">Mengetahui,</p>
                         <p style="margin-right: 40px; margin-bottom: 2px; border-bottom: 1px solid black;">Dina Rahmayanti</p>
                         <p style="margin: 0">HRD</p>
                     </td>
