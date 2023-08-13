@@ -291,7 +291,9 @@ const NilaiService = {
 
 
 
-            const imagePath = Result.image?.split("/")
+            console.log(Result?.image);
+            const imagePath = Result?.image?.split("/")
+            console.log(path.join(TemplateImages.getDirnameImages(), imagePath[imagePath.length - 1]));
             const bitmapPhotoKaryawan = fs.readFileSync(path.join(TemplateImages.getDirnameImages(), imagePath[imagePath.length - 1]))
             const photoKaryawan = bitmapPhotoKaryawan.toString('base64')
 
