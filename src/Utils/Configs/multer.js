@@ -1,16 +1,11 @@
 import multer from "multer"
 import path from "path";
 import fs from "fs";
+import TemplateImage from "../../static-img/images/index.js"
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    const pathUri = path.join(
-      'src',
-      'static-img',
-      'images',
-    )
-
-    console.log(pathUri);
+    const pathUri = path.join(TemplateImage.getDirnameImages())
     fs.mkdirSync(pathUri, { recursive: true })
     cb(null, pathUri)
   },
