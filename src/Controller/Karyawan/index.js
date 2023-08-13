@@ -2,6 +2,8 @@ import Responses from "../../Utils/Helper/Response.js";
 import KaryawanService from "../../Service/Karyawan/index.js";
 import Multer from "../../Utils/Configs/multer.js"
 import path from "path";
+import TemplateImages from "../../static-img/images/index.js"
+
 
 const Karyawan = {
     findAllKaryawan: async (req, res, next) => {
@@ -50,7 +52,7 @@ const Karyawan = {
     createKaryawan: async (req, res, next) => {
         try {
             if (!req.body?.nik ||
-                !req.body?.nama 
+                !req.body?.nama
             ) throw "Bad Request"
         } catch (error) {
             return Responses.badRequest(res, error, next);
@@ -77,10 +79,10 @@ const Karyawan = {
                 image: req.body?.image
             }
             let Result;
-            if (!req.body?.karyawan_id)  {
+            if (!req.body?.karyawan_id) {
                 Result = await KaryawanService.createKaryawan(payload);
             } else {
-                payload = {...payload, karyawan_id: req.body?.karyawan_id}
+                payload = { ...payload, karyawan_id: req.body?.karyawan_id }
                 Result = await KaryawanService.updateKaryawan(payload);
             }
             return Responses.success(res, Result);
@@ -119,6 +121,7 @@ const Karyawan = {
             const Upload = Multer.single('file')
             Upload(req, res, async (err) => {
                 if (err) throw "Error Uploading File"
+
 
                 const directory = path.join("src", "static-img")
                 Responses.success(res, { imageUri: req.file?.path.replace(directory, "") });
