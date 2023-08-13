@@ -7,6 +7,7 @@ import pdf from "pdf-creator-node";
 import path from "path";
 import fs from "fs";
 import Template from "../../Template/index.js"
+import TemplateImages from "../../static-img/images/index.js"
 
 
 const NilaiService = {
@@ -159,12 +160,9 @@ const NilaiService = {
             //     weekday: undefined, year: "numeric", month: "long", day: "numeric"
             // })}`;
 
-            const __filename = fileURLToPath(import.meta.url);
-            const __dirname = path.dirname(__filename);
-
-            const pathHTML = path.join('src', 'Template', "index.html")
-            const pathHTMLDownload = path.join('src', 'Template', 'Report.pdf');
-            const bitmap = fs.readFileSync(path.join('src', 'Template', 'altaflix.png'));
+            const pathHTML = path.join(Template.getDirname(), "index.html")
+            const pathHTMLDownload = path.join(Template.getDirname(), 'Report.pdf');
+            const bitmap = fs.readFileSync(path.join(Template.getDirname(), 'altaflix.png'));
             const logo = bitmap.toString('base64');
 
             const html = fs.readFileSync(pathHTML, "utf8");
@@ -285,17 +283,16 @@ const NilaiService = {
             // })}`;
             // await workbook.xlsx.writeFile(pathDataDownload)
 
-            const pathHTML = path.join('src', 'Template', "Report_Individu.html")
-            const pathHTMLDownload = path.join('src', 'Template', 'Report_Individu.pdf');
+            const pathHTML = path.join(Template.getDirname(), "Report_Individu.html")
+            const pathHTMLDownload = path.join(Template.getDirname(), 'Report_Individu.pdf');
             const bitmap = fs.readFileSync(path.join(Template.getDirname(), 'altaflix.png'));
 
-            console.log(bitmap);
             const logo = bitmap.toString('base64');
 
 
 
             const imagePath = Result.image?.split("/")
-            const bitmapPhotoKaryawan = fs.readFileSync(path.join('src', 'static-img', 'images', imagePath[imagePath.length - 1]))
+            const bitmapPhotoKaryawan = fs.readFileSync(path.join(TemplateImages.getDirnameImages(), imagePath[imagePath.length - 1]))
             const photoKaryawan = bitmapPhotoKaryawan.toString('base64')
 
             const html = fs.readFileSync(pathHTML, "utf8");
