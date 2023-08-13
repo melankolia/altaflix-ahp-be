@@ -79,8 +79,6 @@ const NilaiController = {
         try {
             const Result = await NilaiService.printReport();
 
-            console.log(Result);
-
             return res.download(Result);
         } catch (error) {
             return Responses.failed(res, error, next)
