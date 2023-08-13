@@ -4,7 +4,7 @@ import KriteriaService from "../../Service/Kriteria/index.js";
 const KriteriaController = {
     findAllKriteria: async (req, res, next) => {
         // try {
-            
+
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
@@ -12,7 +12,7 @@ const KriteriaController = {
         try {
             const payload = {
                 search: req.query?.search || "",
-                sort: req.query?.sort || "nama ASC"
+                sort: req.query?.sort || "kriteria_id ASC"
             }
             const Result = await KriteriaService.findAll(payload);
             return Responses.success(res, Result);
@@ -54,10 +54,10 @@ const KriteriaController = {
                 subkriteria: [...req.body?.subkriteria]
             }
             let Result;
-            if (!req.body?.kriteria_id)  {
+            if (!req.body?.kriteria_id) {
                 Result = await KriteriaService.createKriteria(payload);
             } else {
-                payload = {...payload, kriteria_id: req.body?.kriteria_id}
+                payload = { ...payload, kriteria_id: req.body?.kriteria_id }
                 Result = await KriteriaService.updateKriteria(payload);
             }
             return Responses.success(res, Result);

@@ -104,7 +104,7 @@ const NilaiModel = {
                         where subkriteria_id = ?`;
 
         return new Promise((resolve, reject) => {
-            Database.query(sql,[payload], (err, response) => {
+            Database.query(sql, [payload], (err, response) => {
                 if (!err) resolve(response)
                 else reject(err)
             })
@@ -155,8 +155,8 @@ const NilaiModel = {
                 if (!err) resolve(response)
                 else reject(err)
             })
-        })  
-        
+        })
+
     }
 };
 
