@@ -2,7 +2,7 @@ import Responses from "../../Utils/Helper/Response.js";
 import KaryawanService from "../../Service/Karyawan/index.js";
 import Multer from "../../Utils/Configs/multer.js"
 import path from "path";
-import TemplateImages from "../../static-img/images/index.js"
+import TemplateImages from "../../static-img/index.js"
 
 
 const Karyawan = {
@@ -123,7 +123,7 @@ const Karyawan = {
                 if (err) throw "Error Uploading File"
 
 
-                const directory = path.join("src", "static-img")
+                const directory = path.join(TemplateImages.getDirnameImages())
                 Responses.success(res, { imageUri: req.file?.path.replace(directory, "") });
             })
         } catch (error) {
