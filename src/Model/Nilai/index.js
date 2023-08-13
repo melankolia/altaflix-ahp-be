@@ -18,7 +18,7 @@ const NilaiModel = {
                                 GROUP_CONCAT(penilaian.subkriteria_id) as subkriteria,
                                 projek_temp.namaDivisi,
                                 projek_temp.namaProjek,
-                                RANK() OVER(ORDER BY nilai_hasil) rangking
+                                RANK() OVER(ORDER BY nilai_hasil DESC) rangking
                         FROM nilai_karyawan
                         inner join karyawan on nilai_karyawan.karyawan_id = karyawan.karyawan_id
                         inner join penilaian on nilai_karyawan.nilai_id = penilaian.nilai_id 
