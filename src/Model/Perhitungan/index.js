@@ -8,7 +8,7 @@ const PerhitunganModel = {
                                 FROM matriks_perbandingan
                                 inner join kriteria on matriks_perbandingan.kriteria_id = kriteria.kriteria_id
                                 GROUP BY yIndex
-                                ORDER BY yIndex ASC`;
+                                ORDER BY yIndex ASC, xIndex ASC`;
         return new Promise((resolve, reject) => {
             Database.query(sql, (err, response) => {
                 if (!err) resolve(response)
@@ -51,7 +51,7 @@ const PerhitunganModel = {
         });
     },
     getSubkriteria: async (kriteria_id) => {
-            const sql = `select     GROUP_CONCAT(value) as value, 
+        const sql = `select     GROUP_CONCAT(value) as value, 
                                     GROUP_CONCAT(DISTINCT nama) as kategori,
                                     GROUP_CONCAT(DISTINCT subkriteria.kriteria_id) as kriteria_id,
                                     GROUP_CONCAT(matriks_id) as matriks_id
@@ -59,7 +59,7 @@ const PerhitunganModel = {
                                 inner join subkriteria on matriks_perbandingan.subkriteria_id = subkriteria.subkriteria_id
                                 where subkriteria.kriteria_id = ?
                                 GROUP BY yIndex
-                                ORDER BY yIndex ASC;`;
+                                ORDER BY yIndex ASC, xIndex ASC`;
         return new Promise((resolve, reject) => {
             Database.query(sql, [kriteria_id], (err, response) => {
                 if (!err) resolve(response)
