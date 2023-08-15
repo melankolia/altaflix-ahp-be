@@ -4,7 +4,7 @@ import ProjekService from "../../Service/Projek/index.js";
 const ProjekController = {
     findAllProjek: async (req, res, next) => {
         // try {
-            
+
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
@@ -53,10 +53,10 @@ const ProjekController = {
                 divisi_id: req.body?.divisi_id
             }
             let Result;
-            if (!req.body?.projek_id)  {
+            if (!req.body?.projek_id) {
                 Result = await ProjekService.createProjek(payload);
             } else {
-                payload = {...payload, projek_id: req.body?.projek_id}
+                payload = { ...payload, projek_id: req.body?.projek_id }
                 Result = await ProjekService.updateProjek(payload);
             }
             return Responses.success(res, Result);
@@ -84,7 +84,16 @@ const ProjekController = {
             return Responses.failed(res, error, next);
         }
 
-    }
+    },
+    printReport: async (req, res, next) => {
+        try {
+            const Result = await ProjekService.printReport();
+
+            return res.download(Result);
+        } catch (error) {
+            return Responses.failed(res, error, next)
+        }
+    },
 }
 
 export default ProjekController;

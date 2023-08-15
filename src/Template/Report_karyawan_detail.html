@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Data Karyawan</title>
+    <style>
+        body {
+            width: 100%;
+        }
+
+        .container {
+            margin: 0 30px;
+        }
+
+        .custom-table {
+            border-collapse: collapse !important;
+            width: 100%;
+        }
+
+        tr > th {
+            font-family: sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        td, th {
+            border: 1px solid black ;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr > td {
+            font-size: 12px;
+        }
+
+        /* tr:nth-child(even) {
+            background-color: #dddddd;
+        } */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table style="width:100%; margin-bottom: 40px; background-color: transparent">
+            <tr>
+                <td style="width: 50%; border: none;"></td>
+                <td colspan="1" style="text-align: left; border: none ">
+                    <table>
+                        <tr>
+                            <td style="border: none;">
+                                <img src="data:image/png;base64,{{logo}}" width="48" style="margin-right: 12px;">
+                            </td>
+                            <td style="border: none;">             
+                                <p style="font-weight: 600; margin-top: 0; margin-bottom: 8px; font-size: 18px;">PT. ALTAFLIX TECHNO GLOBAL</p>
+                                <p style="margin: 0; font-size: 12px;">Managing IT The Better Way</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table class="custom-table" style="border: none;">
+            <thead>
+                <tr>
+                    <th style="border: none;"></th>
+                    <th style="border: none;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: none;">
+                        <td style="width: 155px ;background: transparent !important; border: none; text-align: left; vertical-align: top;">
+                            <img src="data:image/png;base64,{{photoKaryawan}}" width="140" style="margin-right: 12px;">
+                            <!-- <img src="./altaflix.png" width="48" style="margin: 12px 0"> -->
+                        </td>
+                    </td>
+                    <td style="border: none; vertical-align: top;">
+                        <table style="width: 100%;" class="custom-table">
+                            <tr>
+                                <th style="border: none; text-align: left;">
+                                    <p style="font-weight: bold; font-size: 17px; margin-top: 0px">Data Karyawan</p>
+                                </th>
+                                <th style="border: none;">
+                                </th>
+                                <th style="border: none;"></th>
+                                <th style="border: none;"></th>
+                                <th style="border: none;"></th>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">NIK</td>
+                                <td style="border: none;">: {{nik}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Nama Lengkap</td>
+                                <td style="border: none;">: {{nama}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Jenis Kelamin</td>
+                                <td style="border: none;">: {{jenis_kelamin}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Tempat, Tanggal Lahir</td>
+                                <!-- <td style="border: none;">: {{tempat_lahir}}, {{tanggal_lahir}}</td> -->
+                                <td style="border: none;">: {{tempat_lahir}}, {{tanggal_lahir}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Agama </td>
+                                <td style="border: none;">: {{agama}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Status Pernikahan</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                                <td style="border: none;">: {{status_pernikahan}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">No Telpon</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                                <td style="border: none;">: {{no_telpon}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Pendidikan Terakhir</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{pendidikan_terakhir}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Status Karyawan</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                                <td style="border: none;">: {{status_karyawan}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Nama Proyek</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{namaProjek}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Divisi</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{namaDivisi}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Jabatan</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{jabatan}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">No KTP</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{no_ktp}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">No NPWP</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{npwp}}</td>
+                            </tr>
+                            <tr>
+                                <td style="border: none; width: 280px">Tanggal Masuk</td>
+                                <!-- <td style="border: none;">: {{status_karyawan}}</td> -->
+                               <td style="border: none;">: {{tanggal_masuk}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="width: 100%; margin: 96px 24px 24px 24px">
+            <thead>
+                <tr>
+                    <th style="border: none"></th>
+                    <th style="border: none"></th>
+                    <th style="border: none"></th>
+                    <th style="border: none"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: none"></td>
+                    <td style="border: none"></td>
+                    <td style="border: none"></td>
+                    <td style="width: 35%; border: none;">
+                        <p style="margin-right: 40px; margin-bottom: 4px">Jakarta, {{dateNow}}</p>
+                        <p style="margin-right: 40px; margin-bottom: 100px; margin-top: 0">Mengetahui,</p>
+                        <p style="margin-right: 40px; margin-bottom: 2px; border-bottom: 1px solid black;">Dina Rahmayanti</p>
+                        <p style="margin: 0">HRD</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

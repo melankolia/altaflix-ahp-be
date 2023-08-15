@@ -125,41 +125,6 @@ const NilaiService = {
             const Result = await NilaiService.findAll();
             if (Result.length == 0) return "Data Not Found";
 
-            // const pathData = path.join('src', 'Template', 'Laporan.xlsx');
-            // const pathDataDownload = path.join('src', 'Template', 'Report.xlsx');
-
-            // const workbook = new ExcelJS.Workbook();
-            // await workbook.xlsx.readFile(pathData);
-            // const currentWorkSheet = workbook.worksheets[0];
-            // // console.log(Result);
-
-            // Result.map((e, i) => {
-            //     const { nilai_id, noPenilaian, tglPenilaian, nik, namaKaryawan, namaJabatan, namaDivisi, periode, nilaiHasil, namaProjek, rangking, ...other } = e;
-            //     e.no = i + 1;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(3).value = rangking;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(4).value = noPenilaian;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(5).value = tglPenilaian;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(6).value = nik;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(7).value = namaKaryawan;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(8).value = namaJabatan;
-            //     currentWorkSheet.getRow(9 + (i + 1)).getCell(9).value = namaProjek;
-
-
-            //     const keys = Object.keys(other);
-            //     keys.forEach((e2, i2) => {
-            //         currentWorkSheet.getRow(9 + (i + 1)).getCell(9 + (i2 + 1)).value = e[e2];
-
-            //         if (i2 == keys.length - 1) {
-            //             currentWorkSheet.getRow(9 + (i + 1)).getCell(15).value = nilaiHasil
-            //         }
-            //     })
-
-            // })
-
-            // currentWorkSheet.getCell('L22').value = `Jakarta, ${new Date().toLocaleDateString('id-ID', {
-            //     weekday: undefined, year: "numeric", month: "long", day: "numeric"
-            // })}`;
-
             const pathHTML = path.join(Template.getDirname(), "index.html")
             const pathHTMLDownload = path.join(Template.getDirname(), 'Report.pdf');
             const bitmap = fs.readFileSync(path.join(Template.getDirname(), 'altaflix.png'));
@@ -178,8 +143,9 @@ const NilaiService = {
             })
 
             const dateNow = new Date().toLocaleDateString("id-ID", {
+                weekday: "long",
                 year: "numeric",
-                month: "2-digit",
+                month: "long",
                 day: "numeric"
             })
 
@@ -302,7 +268,12 @@ const NilaiService = {
                 border: "10mm",
             }
 
-            const dateNow = new Date().toLocaleDateString('id-ID', { weekday: undefined, year: "numeric", month: "long", day: "numeric" })
+            const dateNow = new Date().toLocaleDateString("id-ID", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            })
 
             const document = {
                 html: html,

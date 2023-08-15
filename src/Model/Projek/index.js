@@ -2,7 +2,10 @@ import Database from "../../Utils/Configs/db.js"
 
 
 const ProjekModel = {
-    findAll: async (payload) => {
+    findAll: async (payload = {
+        search: "",
+        sort: "code ASC"
+    }) => {
         const sql = `SELECT 	projek_id,
                                 projek.code,
                                 projek.nama as namaProjek,
@@ -67,7 +70,7 @@ const ProjekModel = {
             })
         });
     },
-    deleteProjek: async(payload) => {
+    deleteProjek: async (payload) => {
         const sql = `DELETE FROM projek where projek_id in ?`
         return new Promise((resolve, reject) => {
             Database.query(sql, [[[payload.projek_id]]], (err, response) => {

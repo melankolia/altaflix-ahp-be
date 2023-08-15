@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Penilaian Karyawan</title>
+    <title>Laporan Data Proyek</title>
     <style>
         body {
             zoom: 90%;
@@ -48,7 +48,7 @@
             <tr>
                 <td colspan="3" style="text-align: center; border: none !important; width: 55%">
                     <p style="font-weight: 600; font-size: 14px; margin-right: 10%;">
-                        Laporan Penilaian Karyawan
+                        Laporan Data Proyek
                     </p>
                 </td>
                 <td colspan="1" style="text-align: left; border: none ">
@@ -69,66 +69,15 @@
         </table>
         <table class="custom-table">
             <tr>
-                <th>No</th>
-                <th>No Penilaian</th>
-                <th>Tgl Penilaian</th>
-                <th>NIK</th>
-                <th>Nama</th>
-                <th>Jabatan</th>
-                <th>Projek</th>
-                <th>
-                    <p style="margin: 0;">
-                        Nilai <br />
-                        Prestasi Pekerjaan
-                    </p>
-                </th>
-                <th>
-                    <p style="margin: 0;">
-                        Nilai <br />
-                        Kemampuan Teknis
-                    </p>
-                </th>
-                <th>
-                    <p style="margin: 0;">
-                        Nilai <br />
-                        Kedisiplinan
-                    </p>
-                </th>
-                <th>
-                    <p style="margin: 0;">
-                        Nilai <br />
-                        Komunikasi
-                    </p>
-                </th>
-                <th>                   
-                    <p style="margin: 0;">
-                    Nilai <br />
-                    Kerja Sama
-                </p></th>
-                <th>
-                    <p style="margin: 0;">
-                        Nilai <br />
-                        Akhir
-                    </p>
-                </th>
-                <th>Rangking</th>
+                <th style="width: 20px">No</th>
+                <th>Kode Proyek</th>
+                <th>Nama Proyek</th>
             </tr>
             {{#each data.result}}
             <tr>
                 <td>{{this.no}}</td>
-                <td>{{this.noPenilaian}}</td>
-                <td>{{this.tglPenilaian}}</td>
-                <td>{{this.nik}}</td>
-                <td>{{this.namaKaryawan}}</td>
-                <td>{{this.namaJabatan}}</td>
+                <td>{{this.code}}</td>
                 <td>{{this.namaProjek}}</td>
-                <td>{{this.prestasiPekerjaan}}</td>
-                <td>{{this.kemampuanTeknis}}</td>
-                <td>{{this.kedisiplinan}}</td>
-                <td>{{this.komunikasi}}</td>
-                <td>{{this.kerjaSama}}</td>
-                <td>{{this.nilaiHasil}}</td>
-                <td style="text-align: center;">{{this.rangking}}</td>
             </tr>
             {{/each}}
         </table>
@@ -147,7 +96,7 @@
                     <td style="border: none !important;"></td>
                     <td style="border: none !important;"></td>
                     <td style="width: 25%; border: none !important;">
-                        <p style="margin-right: 40px; margin-bottom: 2px">Jakarta, {{dateNow}}</p>
+                        <p style="margin-right: 40px; margin-bottom: 2px">Jakarta, {{data.dateNow}}</p>
                         <p style="margin-right: 40px; margin-bottom: 60px; margin-top: 0">Mengetahui</p>
                         <p style="margin-right: 40px; margin-bottom: 2px; border-bottom: 1px solid black;">Dina Rahmayanti</p>
                         <p style="margin: 0">HRD</p>

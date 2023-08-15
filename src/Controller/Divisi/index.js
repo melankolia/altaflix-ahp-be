@@ -4,7 +4,7 @@ import DivisiService from "../../Service/Divisi/index.js";
 const DivisiController = {
     findAllDivisi: async (req, res, next) => {
         // try {
-            
+
         // } catch (error) {
         //     return Responses.badRequest(res, error, next)
         // }
@@ -52,10 +52,10 @@ const DivisiController = {
                 nama: req.body?.nama,
             }
             let Result;
-            if (!req.body?.divisi_id)  {
+            if (!req.body?.divisi_id) {
                 Result = await DivisiService.createDivisi(payload);
             } else {
-                payload = {...payload, divisi_id: req.body?.divisi_id}
+                payload = { ...payload, divisi_id: req.body?.divisi_id }
                 Result = await DivisiService.updateDivisi(payload);
             }
             return Responses.success(res, Result);
@@ -83,7 +83,16 @@ const DivisiController = {
             return Responses.failed(res, error, next);
         }
 
-    }
+    },
+    printReport: async (req, res, next) => {
+        try {
+            const Result = await DivisiService.printReport();
+
+            return res.download(Result);
+        } catch (error) {
+            return Responses.failed(res, error, next)
+        }
+    },
 }
 
 export default DivisiController;

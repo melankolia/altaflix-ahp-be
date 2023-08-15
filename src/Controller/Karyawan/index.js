@@ -129,7 +129,34 @@ const Karyawan = {
         } catch (error) {
             return Responses.failed(res, error, next);
         }
-    }
+    },
+    printReport: async (req, res, next) => {
+        try {
+            const Result = await KaryawanService.printReport();
+
+            return res.download(Result);
+        } catch (error) {
+            return Responses.failed(res, error, next)
+        }
+    },
+    printReportDetail: async (req, res, next) => {
+        try {
+            if (!req.params?.karyawan_id) throw "Karyawan Id Required"
+        } catch (error) {
+            return Responses.badRequest(res, error, next)
+        }
+
+        try {
+            const karyawan_id = req.params?.karyawan_id;
+
+            const Result = await KaryawanService.printReportDetail(karyawan_id);
+
+            return res.download(Result);
+        } catch (error) {
+            return Responses.failed(res, error, next)
+        }
+    },
+
 }
 
 export default Karyawan;

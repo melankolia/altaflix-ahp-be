@@ -2,7 +2,10 @@ import Database from "../../Utils/Configs/db.js"
 
 
 const DivisiModel = {
-    findAll: async (payload) => {
+    findAll: async (payload = {
+        search: "",
+        sort: "code ASC"
+    }) => {
         const sql = `SELECT * FROM divisi
                             where nama LIKE '%${payload.search}%' OR code LIKE '%${payload.search}%'
                             ORDER BY ${payload.sort}`;
@@ -54,7 +57,7 @@ const DivisiModel = {
             })
         });
     },
-    deleteDivisi: async(payload) => {
+    deleteDivisi: async (payload) => {
         const sql = `DELETE FROM divisi where divisi_id in ?`
         return new Promise((resolve, reject) => {
             Database.query(sql, [[[payload.divisi_id]]], (err, response) => {
