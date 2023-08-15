@@ -29,10 +29,10 @@ app.use(logger("combined"))
 // Manage cors, menentukan situs mana yang boleh akses, situs yang mana yang di blacklist
 app.use(cors());
 
-app.use("/", express.static(path.join(Template.getDirname())));
+app.use("/template", express.static(Template.getDirname()));
 
-const directory = path.join(TemplateImages.getDirnameImages())
-app.use("/", express.static(path.join(directory)));
+const directory = path.join()
+app.use("/images", express.static(TemplateImages.getDirnameImages()));
 
 
 // Init Body Parser
