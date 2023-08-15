@@ -3,7 +3,7 @@ import Database from "../../Utils/Configs/db.js";
 const NilaiModel = {
     findAll: async (payload = {
         search: '',
-        sort: "nilai_hasil ASC",
+        sort: "nilai_hasil DESC",
         tab: ""
     }) => {
         const sql = `SELECT
