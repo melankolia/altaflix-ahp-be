@@ -86,7 +86,9 @@ const DivisiService = {
                 e.no = i + 1
             })
 
+
             const dateNow = new Date().toLocaleDateString("id-ID", {
+                timeZone: "Asia/Jakarta",
                 weekday: "long",
                 year: "numeric",
                 month: "long",

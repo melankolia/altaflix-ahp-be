@@ -101,6 +101,7 @@ const KaryawanService = {
             })
 
             const dateNow = new Date().toLocaleDateString("id-ID", {
+                timeZone: "Asia/Jakarta",
                 weekday: "long",
                 year: "numeric",
                 month: "long",
@@ -172,6 +173,7 @@ const KaryawanService = {
             }
 
             const dateNow = new Date().toLocaleDateString("id-ID", {
+                timeZone: "Asia/Jakarta",
                 weekday: "long",
                 year: "numeric",
                 month: "long",
