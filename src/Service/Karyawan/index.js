@@ -81,8 +81,10 @@ const KaryawanService = {
             const Result = await KaryawanModel.findAll();
             if (Result.length == 0) return "Data Not Found";
 
+
             const pathHTML = path.join(Template.getDirname(), "Report_karyawan.html")
             const pathHTMLDownload = path.join(Template.getDirname(), 'Report_karyawan.pdf');
+
             const bitmap = fs.readFileSync(path.join(Template.getDirname(), 'altaflix.png'));
             const logo = bitmap.toString('base64');
 
@@ -120,10 +122,10 @@ const KaryawanService = {
 
             await pdf.create(document, options)
                 .then((res) => {
-
                     console.log(res)
                 })
                 .catch((error) => {
+                    console.log(error);
                     throw "Error creating PDF"
                 });
 
